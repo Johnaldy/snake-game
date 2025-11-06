@@ -7,6 +7,7 @@
  * - Dynamic obstacles (appear every 50 points starting at score 50)
  * - Moving obstacles (obstacles move randomly after score 200)
  * - High score tracking (saved in browser)
+ * - Sound effects (eating food, game over)
  * 
  * Controls: Arrow Keys or WASD
  */
@@ -20,6 +21,55 @@ const ctx = canvas.getContext('2d');
 // Game settings - defines the grid size
 const gridSize = 20;                              // Size of each grid cell in pixels
 const tileCount = canvas.width / gridSize;        // Number of tiles in grid (20x20)
+
+// ==================== SOUND EFFECTS ====================
+
+// Create audio context for sound effects
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+
+/**
+ * Play a beep sound for eating food
+ * Creates a short, pleasant tone
+ */
+function playEatSound() {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;  // High pitch tone
+    oscillator.type = 'sine';           // Smooth sine wave
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.1);
+}
+
+/**
+ * Play a "duh" sound for game over
+ * Creates a descending tone to indicate failure
+ */
+function playGameOverSound() {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);  // Start high
+    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.3);  // Drop down
+    oscillator.type = 'sawtooth';  // Harsh sound for failure
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+}
 
 // ==================== GAME STATE VARIABLES ====================
 
@@ -259,6 +309,9 @@ function checkFoodCollision() {
  * Increases score, grows snake, spawns obstacles, increases speed
  */
 function eatFood() {
+    // Play eating sound effect
+    playEatSound();
+    
     // Increase score by 10 points
     score += 10;
     scoreElement.textContent = score;
@@ -515,6 +568,9 @@ function draw() {
  * Stops game loop and displays final score
  */
 function endGame() {
+    // Play game over sound effect
+    playGameOverSound();
+    
     clearInterval(gameLoop);  // Stop game loop
     gameLoop = null;
     finalScoreElement.textContent = score;  // Display final score
