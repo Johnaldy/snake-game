@@ -1,12 +1,21 @@
+/*
+ * CLASSIC SNAKE GAME STYLES
+ * Modern glassmorphism design with gradient backgrounds
+ */
+
+/* ==================== GLOBAL STYLES ==================== */
+
+/* Reset default browser styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body - full screen gradient background */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  /* Purple gradient */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,21 +23,28 @@ body {
     color: #fff;
 }
 
+/* ==================== GAME CONTAINER ==================== */
+
+/* Main game container - glassmorphism effect */
 .game-container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);  /* Semi-transparent white */
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  /* Frosted glass effect */
 }
 
+/* Game title */
 h1 {
     margin-bottom: 20px;
     font-size: 2.5em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* ==================== SCORE BOARD ==================== */
+
+/* Score display - shows current and high score */
 .score-board {
     display: flex;
     justify-content: space-around;
@@ -37,13 +53,19 @@ h1 {
     font-weight: bold;
 }
 
+/* ==================== GAME CANVAS ==================== */
+
+/* Canvas element - where game is rendered */
 #gameCanvas {
     border: 3px solid #fff;
     border-radius: 10px;
-    background-color: #1a1a2e;
+    background-color: #1a1a2e;  /* Dark background matching game draw() */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* ==================== CONTROLS ==================== */
+
+/* Control section - instructions and buttons */
 .controls {
     margin-top: 20px;
 }
@@ -53,13 +75,16 @@ h1 {
     font-size: 1.1em;
 }
 
+/* ==================== BUTTONS ==================== */
+
+/* Button styling - gradient background with hover effects */
 button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     padding: 12px 30px;
     margin: 5px;
-    border-radius: 25px;
+    border-radius: 25px;  /* Rounded pill shape */
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
@@ -67,21 +92,26 @@ button {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Button hover effect - lift up */
 button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Button active/pressed effect */
 button:active {
     transform: translateY(0);
 }
 
+/* ==================== GAME OVER OVERLAY ==================== */
+
+/* Game over modal - centered overlay */
 .game-over {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
+    transform: translate(-50%, -50%);  /* Center perfectly */
+    background: rgba(0, 0, 0, 0.9);  /* Dark semi-transparent */
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -90,7 +120,7 @@ button:active {
 .game-over h2 {
     font-size: 2em;
     margin-bottom: 20px;
-    color: #ff6b6b;
+    color: #ff6b6b;  /* Red color to emphasize game over */
 }
 
 .game-over p {
@@ -98,6 +128,9 @@ button:active {
     margin-bottom: 20px;
 }
 
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Hidden class - hides elements (used for game over screen) */
 .hidden {
     display: none;
 }
